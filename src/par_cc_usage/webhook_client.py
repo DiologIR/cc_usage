@@ -8,6 +8,7 @@ from typing import Any
 from zoneinfo import ZoneInfo
 
 import requests
+from urllib.parse import urlparse
 
 from .enums import TimeFormat, WebhookType
 from .json_models import DiscordWebhookPayload, SlackWebhookPayload
@@ -47,7 +48,7 @@ class WebhookClient:
         """
         if "discord.com" in webhook_url.lower():
             return WebhookType.DISCORD
-        elif "hooks.slack.com" in webhook_url.lower():
+        elif urlparse(webhook_url).hostname == "hooks.slack.com":
             return WebhookType.SLACK
         else:
             # Default to Discord for backward compatibility
