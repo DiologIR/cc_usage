@@ -46,7 +46,7 @@ class WebhookClient:
         Returns:
             Detected webhook type
         """
-        if "discord.com" in webhook_url.lower():
+        if urlparse(webhook_url).hostname == "discord.com":
             return WebhookType.DISCORD
         elif urlparse(webhook_url).hostname == "hooks.slack.com":
             return WebhookType.SLACK
